@@ -24,8 +24,6 @@ namespace HEAP
         public void Heapify(int a)
         {
             int largest;
-            largest = H[0];
-
             largest = a;
 
             if (2 * a < heapSize && H[2 * a] > H[largest])
@@ -39,10 +37,20 @@ namespace HEAP
 
             if (largest != a)
             {
-                int memory = H[largest - 1];
-                H[largest] = H[a];
-                H[a] = memory;
-                Heapify(largest);
+                if (largest != heapSize)
+                {
+                    int memory = H[largest];
+                    H[largest] = H[a];
+                    H[a] = memory;
+                    Heapify(largest);
+                }
+                else
+                {
+                    int memory = H[largest -1];
+                    H[largest -1] = H[a];
+                    H[a] = memory;
+                    Heapify(largest);
+                }
             }
 
         }
@@ -73,12 +81,14 @@ namespace HEAP
 
         public void PrintHeap()
         {
+            string line = "";
+
             for (int i = 0; i < heapSize; i++)
             {
-                Console.WriteLine(H[i]);
-                Console.WriteLine(" ");
+                line = line + H[i] + " ";
                 
             }
+            Console.WriteLine(line);
         }
 
         public void ExtractHeap()
