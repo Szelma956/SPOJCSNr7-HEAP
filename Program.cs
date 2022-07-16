@@ -28,13 +28,18 @@ namespace HEAP
 
             largest = a;
 
-            if (2 * a <= heapSize && H[2 * a] > H[largest])
+            if (2 * a < heapSize && H[2 * a] > H[largest])
+            {
+                largest = 2 * a;
+            }
+            if (2 * a + 1 < heapSize && H[2 * a + 1] > H[largest])
             {
                 largest = 2 * a + 1;
             }
+
             if (largest != a)
             {
-                int memory = H[largest];
+                int memory = H[largest - 1];
                 H[largest] = H[a];
                 H[a] = memory;
                 Heapify(largest);
@@ -53,11 +58,10 @@ namespace HEAP
         public void Insert(int a)
         {
             int child;
-            heapSize = heapSize + 1;
-            child = heapSize;
+            child = heapSize - 1;
             H[child] = a;
 
-            while (child > 1 && H[child] > H[child / 2])
+            while (child > 0 && H[child] > H[child / 2])
             {
                 int memory = H[child];
                 H[child] = H[child / 2];
@@ -81,7 +85,10 @@ namespace HEAP
 
         public void ExtractHeap()
         {
-
+            heapSize = heapSize - 1;
+            Console.WriteLine(H[heapSize]);
+            H = new int[heapSize];
+            BuildHeap();
         }
     }
     internal class Program
@@ -117,7 +124,7 @@ namespace HEAP
                     line = Console.ReadLine();
                     if (string.Equals(line, "E"))
                     {
-
+                        heap.ExtractHeap();
                     }
                     else if (string.Equals(line, "P"))
                     {
