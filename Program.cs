@@ -30,11 +30,11 @@ namespace HEAP
 
             if (2 * a < heapSize && H[2 * a] > H[largest])
             {
-                largest = 2 * a;
+                largest = 2 * a + 1;
             }
             if (2 * a + 1 < heapSize && H[2 * a + 1] > H[largest])
             {
-                largest = 2 * a + 1;
+                largest = 2 * a + 2;
             }
 
             if (largest != a)
@@ -61,11 +61,11 @@ namespace HEAP
             child = heapSize - 1;
             H[child] = a;
 
-            while (child > 0 && H[child] > H[child / 2])
+            while (child > 0 && H[child] > H[child - 1/ 2])
             {
                 int memory = H[child];
-                H[child] = H[child / 2];
-                H[child / 2] = memory;
+                H[child] = H[child - 1 / 2];
+                H[child -1 / 2] = memory;
                 child = child / 2;
             }
 
