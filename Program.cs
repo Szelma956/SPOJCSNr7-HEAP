@@ -76,10 +76,8 @@ namespace HEAP
             for (int i = 0; i < heapSize; i++)
             {
                 Console.WriteLine(H[i]);
-                if (i != heapSize - 1)
-                {
-                    Console.WriteLine(" ");
-                }
+                Console.WriteLine(" ");
+                
             }
         }
 
