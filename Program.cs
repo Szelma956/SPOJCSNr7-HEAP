@@ -39,12 +39,12 @@ namespace HEAP
                 H[a] = memory;
                 Heapify(largest);
             }
-                        
+
         }
 
         public void BuildHeap()
         {
-            for(int i = 0; i < heapSize; i++) 
+            for (int i = 0; i < heapSize; i++)
             {
                 Heapify(i);
             }
@@ -57,13 +57,30 @@ namespace HEAP
             child = heapSize;
             H[child] = a;
 
-            while (child > 1 && H[child] > H[child / 2]) 
+            while (child > 1 && H[child] > H[child / 2])
             {
                 int memory = H[child];
-                H[child] = H[child/2];
-                H[child/2] = memory;
+                H[child] = H[child / 2];
+                H[child / 2] = memory;
                 child = child / 2;
             }
+
+        }
+
+        public void PrintHeap()
+        {
+            for (int i = 0; i < heapSize; i++)
+            {
+                Console.WriteLine(H[i]);
+                if (i != heapSize - 1)
+                {
+                    Console.WriteLine(" ");
+                }
+            }
+        }
+
+        public void ExtractHeap()
+        {
 
         }
     }
@@ -71,6 +88,44 @@ namespace HEAP
     {
         static void Main(string[] args)
         {
+            int testNuber;
+            int n;
+            string line = Console.ReadLine();
+            testNuber = int.Parse(line);
+
+            for (int i = 0; i < testNuber; i++)
+            {
+                line = Console.ReadLine();
+                n = int.Parse(line);
+
+                Heap heap = new Heap(n, n);
+
+                for (int j = 0; j < n; j++)
+                {
+                    int heapObject;
+                    line = Console.ReadLine();
+                    heapObject = int.Parse(line);
+                    heap.Insert(heapObject);
+                    heap.BuildHeap();
+                }
+
+                int scndTestNumber;
+                line = Console.ReadLine();
+                scndTestNumber = int.Parse(line);
+                for (int k = 0; k < scndTestNumber; k++)
+                {
+                    line = Console.ReadLine();
+                    if (string.Equals(line, "E"))
+                    {
+
+                    }
+                    else if (string.Equals(line, "P"))
+                    {
+                        heap.PrintHeap();
+                    }
+                }
+
+            }
         }
     }
 }
