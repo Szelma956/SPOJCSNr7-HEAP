@@ -10,93 +10,89 @@ namespace HEAP
     class Heap
     {
         int heapSize;
-        int lenght;
         int[] H;
 
-        public Heap(int l, int heapData)
+        public Heap(int heapData)
         {
-            this.lenght = l;
-            this.heapSize = heapData;
-            this.H = new int[l];
+            this.heapSize = 0;
+            this.H = new int[heapData];
 
+        }
+        public Heap(int[] tab)
+        {
+            H = tab;
+            heapSize = tab.Length;
+            BuildHeap();
         }
 
         public void Heapify(int a)
         {
             int largest;
             largest = a;
+            int child1 = 2 * a + 1;
+            int child2 = 2 * a + 2;
 
-            if (2 * a < heapSize && H[2 * a] > H[largest])
+            if (child1 < heapSize && H[child1] < H[largest])
             {
-                largest = 2 * a + 1;
+                largest = child1;
             }
-            if (2 * a + 1 < heapSize && H[2 * a + 1] > H[largest])
+            if (child2 < heapSize && H[child2] < H[largest])
             {
-                largest = 2 * a + 2;
+                largest = child2;
             }
 
             if (largest != a)
             {
-                if (largest != heapSize)
-                {
-                    int memory = H[largest];
-                    H[largest] = H[a];
-                    H[a] = memory;
-                    Heapify(largest);
-                }
-                else
-                {
-                    int memory = H[largest -1];
-                    H[largest -1] = H[a];
-                    H[a] = memory;
-                    Heapify(largest);
-                }
+                int memory = H[largest];
+                H[largest] = H[a];
+                H[a] = memory;
+                Heapify(largest);
             }
 
         }
 
         public void BuildHeap()
         {
-            for (int i = 0; i < heapSize; i++)
+            for (int i = heapSize - 1; i >= 0; i--) 
             {
                 Heapify(i);
             }
+        
         }
 
         public void Insert(int a)
         {
+            heapSize++;
             int child;
+            int parent;
             child = heapSize - 1;
+            parent = (child - 1) / 2;
             H[child] = a;
 
-            while (child > 0 && H[child] > H[child - 1/ 2])
+            while (child > 0 && H[child] < H[parent])
             {
                 int memory = H[child];
-                H[child] = H[child - 1 / 2];
-                H[child -1 / 2] = memory;
-                child = child / 2;
+                H[child] = H[parent];
+                H[parent] = memory;
+                child = parent;
+                parent = (child - 1) / 2;
             }
 
         }
 
         public void PrintHeap()
         {
-            string line = "";
-
-            for (int i = 0; i < heapSize; i++)
-            {
-                line = line + H[i] + " ";
-                
-            }
+            string line = string.Join(" ", H.Take(heapSize));
             Console.WriteLine(line);
         }
 
-        public void ExtractHeap()
+        public int ExtractHeap()
         {
+            int result = H[0];
             heapSize = heapSize - 1;
-            Console.WriteLine(H[heapSize]);
-            H = new int[heapSize];
-            BuildHeap();
+            H[0] = H[heapSize];
+            Heapify(0);
+            return result;
         }
     }
     internal class Program
@@ -113,17 +109,19 @@ namespace HEAP
                 line = Console.ReadLine();
                 n = int.Parse(line);
 
-                Heap heap = new Heap(n, n);
+                int[] rawHeap = new int[n];
 
                 for (int j = 0; j < n; j++)
                 {
                     int heapObject;
                     line = Console.ReadLine();
                     heapObject = int.Parse(line);
-                    heap.Insert(heapObject);
-                    heap.BuildHeap();
+                    rawHeap[j] = heapObject;
                 }
 
+                Heap heap = new Heap(rawHeap);
+
+                Console.ReadLine();
                 int scndTestNumber;
                 line = Console.ReadLine();
                 scndTestNumber = int.Parse(line);
@@ -132,13 +130,14 @@ namespace HEAP
                     line = Console.ReadLine();
                     if (string.Equals(line, "E"))
                     {
-                        heap.ExtractHeap();
+                        Console.WriteLine(heap.ExtractHeap());
                     }
                     else if (string.Equals(line, "P"))
                     {
                         heap.PrintHeap();
                     }
                 }
+                Console.ReadLine();
 
             }
         }
