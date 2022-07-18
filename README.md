@@ -3,7 +3,7 @@ Zadanie polega na zaimplementowaniu kopca min-heap przechowującego liczby całk
 
 W funkcji heapify, w przypadku gdy obaj synowie mają równą wartość należy wybrać lewego syna.
 
-Wejście
+Wejście:
 W pierwszym wierszu podana jest liczba testów. Dalej znajdują się kolejne testy.
 
 Dla każdego testu wpierw podana jest liczba n, a następnie n liczb na podstawie których należy zbudować kopiec (liczby należy wczytać do tablicy i używając funkcji BuildHeap utworzyć kopiec). W kolejnym wierszu znajduje się liczba m i kolejno m wierszy zawierających jedną literę E lub P.
